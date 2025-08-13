@@ -1,0 +1,119 @@
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-image: url('../images/background.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    min-height: 100vh;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background-color: rgba(157, 119, 246, 0.201);
+    z-index: -1;
+}
+
+header h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: white;
+    text-align: center;
+    text-shadow: 2px 2px 6px red;
+}
+
+main {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    width: 80%;
+    margin: 0 auto;
+}
+
+.image-section,
+.title-section {
+    flex: 1;
+}
+
+.image-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.background-image {
+    width: 100%;
+    height: 90%;
+    max-height: 100%;
+    object-fit:fill;
+}
+
+.options-list {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+}
+
+.title-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgba(58, 0, 94, 0.797);
+    padding: 1rem;
+    border-radius: 8px;
+}
+
+.title-section h1 {
+    font-size: 2rem;
+    color: aliceblue;
+    text-shadow: 2px 2px 6px red;
+    margin: 0.5rem 0;
+}
+
+.plate {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 80%;
+    text-align: center;
+    font-size: 1.1rem;
+}
+
+.plate > p {
+    flex: 1;
+}
+
+.title-section p {
+    color: white;
+}
+
+.button-container {
+    display: flex;
+    gap: 10vh;
+    justify-content: center;
+    margin-top: 5%;
+    margin-bottom: 5%;
+    flex-wrap: wrap;
+}
+
+.order-button {
+    background: linear-gradient(135deg, #ff4b2b, #ff416c);
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 30px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.order-button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+}
