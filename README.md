@@ -64,7 +64,7 @@ Podemos descargarlo desde el siguiente enlace oficial:
     git --version
     ```
 
-# Primeros pasos
+# Primeros pasos - Implementacion en un entorno en vivo
 
 1. **Obtener el proyecto**  
    Puedes obtener el proyecto de dos maneras:
@@ -114,3 +114,66 @@ El sistema mostrará un mensaje de confirmación.
 ![Formulario de pedido](docs/order.png)
 
 
+# Ejecutando las pruebas
+
+Este proyecto incluye un conjunto de **pruebas automatizadas con JUnit** para validar el comportamiento del servidor HTTP.  
+Estas pruebas verifican el flujo completo de una petición HTTP y la respuesta generada por el "servidor", asegurando que los recursos se sirvan correctamente y que los errores sean manejados de forma adecuada.
+
+Para ejecutar todas las pruebas:
+```
+mvn test
+```
+
+
+![Ejemplo de una prueba](docs/pruebas.png)
+
+Esta prueba:
+
+- Simula una solicitud GET al servidor.
+
+- Comprueba que el servidor responde con HTTP/1.1 200 OK, indicando que el recurso fue encontrado y enviado correctamente.
+
+También existen pruebas que:
+
+- Validan que un recurso inexistente devuelve 404 Not Found.
+
+- Comprueban que las solicitudes POST procesan correctamente los datos enviados.
+
+las encontramos en 
+
+```
+src/test/java/edu/escuelaing/Lab01/HttpServerTest.java
+```
+
+o haciendo [Click aquí](src/test/java/edu/escuelaing/Lab01/HttpServerTest.java)
+
+
+## Implementación
+
+Este proyecto se puede ejecutar tanto en un entorno local como en un servidor remoto.  
+En un **entorno local**, siga los pasos de la sección ["Primeros pasos"](#primeros-pasos).  
+
+Para un **entorno en vivo**:
+1. Compile el proyecto (`mvn clean install`) y copie el `.jar` generado al servidor.
+2. Ejecútelo con:
+   ```bash
+   java -cp WebServer-1.0-SNAPSHOT.jar edu.escuelaing.Lab01.HttpServer
+3. Asegúrese de que el puerto 35000 esté abierto en el firewall.
+
+4. Verifique que las carpetas de recursos (/layouts, /styles, /scripts, /images) estén presentes en el servidor.
+
+5. acceder a http://<IP_DEL_SERVIDOR>:35000
+
+## Construido con
+* [Java](https://www.oracle.com/java/) - Lenguaje principal
+* [Maven](https://maven.apache.org/) - Gestión de dependencias
+* HTML, CSS y JavaScript - Interfaz de usuario
+
+## Autores
+* **Cesar David Amaya Gomez** - Autor principal
+
+## Licencia
+
+Este proyecto está licenciado bajo la Licencia Pública General de GNU, versión 3 (GPLv3).  
+Puedes ver una copia completa en el archivo [LICENSE](LICENSE) de este repositorio o en  
+[https://www.gnu.org/licenses/gpl-3.0.html](https://www.gnu.org/licenses/gpl-3.0.html).
