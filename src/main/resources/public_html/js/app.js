@@ -1,4 +1,58 @@
-// app.js
+// Asigna eventos al cargar la página
+document.addEventListener("DOMContentLoaded", function () {
+    // document.getElementById("btnMenu").addEventListener("click", getMenu);
+    // document.getElementById("btnPedido").addEventListener("click", showForm);
+    document.getElementById("btnSubmit").addEventListener("click", loadPostOptions);
+});
+let userName = null;
+
+function loadPostOptions() {
+    const nameValue = document.getElementById("nameInput").value.trim();
+    if (!nameValue) {
+        alert("Por favor ingresa tu nombre");
+        return;
+    }
+
+    const nameEncoded = encodeURIComponent(nameValue);
+
+    fetch("/options?name=" + nameEncoded, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: nameValue })
+    })
+        .then(response => {
+            userName = response.url.split("name=")[1];
+            getOptions(userName);
+            response.text()
+
+      })
+        .catch(err => console.error("Error al cargar las opciones:", err));
+}
+function getOptions(data) {
+    console.log("Data received:", data);
+    fetch("http://localhost:35000/layouts/options.html")
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error HTTP: ${response.status}`);
+            }
+            return response.text();
+        })
+        .then(html => {
+            document.body.innerHTML = html;
+            if (data) {
+                const section = document.getElementById("continer");
+                if (section) {
+                    const greeting = document.createElement("p");
+                    greeting.id = "greeting";
+                    greeting.textContent = `Welcome ${data}!`;
+                    section.insertBefore(greeting, section.firstChild);
+                }
+            }
+        })
+        .catch(err => {
+            console.error("No se pudo cargar las opciones:", err);
+        });
+}
 
 function getMenu() {
     fetch("http://localhost:35000/layouts/menu.html")
@@ -9,26 +63,14 @@ function getMenu() {
             return response.text();
         })
         .then(html => {
-            document.body.innerHTML = html; 
+            document.body.innerHTML = html;
         })
         .catch(err => {
             console.error("No se pudo cargar el menú:", err);
         });
 }
 function getHome() {
-    fetch("http://localhost:35000/")
-        .then(response => {
-            if (!response.ok) {
-                throw new Error(`Error HTTP: ${response.status}`);
-            }
-            return response.text();
-        })
-        .then(html => {
-            document.body.innerHTML = html; 
-        })
-        .catch(err => {
-            console.error("No se pudo cargar el menú:", err);
-        });
+    getOptions(userName);
 }
 function showForm() {
     fetch("http://localhost:35000/layouts/order.html")
@@ -40,7 +82,7 @@ function showForm() {
         })
         .then(html => {
             document.body.innerHTML = html;
-            Order(); 
+            Order();
         })
         .catch(err => {
             console.error("No se pudo cargar el formulario:", err);
@@ -54,14 +96,9 @@ function Order() {
         return;
     }
 
-    form.addEventListener("submit", function(event) {
+    form.addEventListener("submit", function (event) {
         event.preventDefault();
         alert("Order submitted! Thank you.");
-        getHome(); 
+        getHome();
     });
 }
-// Asigna eventos al cargar la página
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("btnMenu").addEventListener("click", getMenu);
-    document.getElementById("btnPedido").addEventListener("click", showForm);
-});
